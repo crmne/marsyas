@@ -79,6 +79,7 @@ if(APPLE)
 
   install(CODE "
 include(BundleUtilities)
+set(BU_CHMOD_BUNDLE_ITEMS ON)
 fixup_bundle(
   \"${bundle_dir}\"
   \"${extra_fixup_items}\"
