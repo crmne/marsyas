@@ -15,8 +15,8 @@ if(MARSYAS_OSC)
 endif()
 
 if(MARSYAS_PNG) 
-  add_subdirectory(zlib-1.2.3)
-  add_subdirectory(libpng-1.2.35)
+  # add_subdirectory(zlib-1.2.3)
+  # add_subdirectory(libpng-1.2.35)
 endif(MARSYAS_PNG)
 
 if(WITH_QT)

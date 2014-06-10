@@ -190,6 +190,8 @@ if (MARSYAS_PNG)
     include_directories(${FREETYPE_INCLUDE_DIR_freetype2})
 	include_directories(${FREETYPE_INCLUDE_DIR_ft2build})
 
+  include_directories(${PNG_INCLUDE_DIRS})
+  include_directories(${ZLIB_INCLUDE_DIRS})
 endif (MARSYAS_PNG)
 
 if (MARSYAS_LAME)
@@ -256,12 +258,8 @@ if(MARSYAS_MAD)
 endif(MARSYAS_MAD)
 
 if(MARSYAS_PNG)
-  if(MARSYAS_STATIC)
-    target_link_libraries(marsyas png12_static)
-  else()
-    target_link_libraries(marsyas png12 ${FREETYPE_LIBRARY})
-  endif()
-  target_link_libraries(marsyas zlib)
+  target_link_libraries(marsyas ${PNG_LIBRARIES})
+  target_link_libraries(marsyas ${ZLIB_LIBRARIES})
 endif(MARSYAS_PNG)
 
 if(MARSYAS_LAME)
