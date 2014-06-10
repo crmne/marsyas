@@ -85,6 +85,28 @@ if (WITH_SWIG)
     else()
       find_package(PythonLibs REQUIRED)
     endif()
+
+    if(MARSYAS_LINUX)
+      set(PYTHON_GET_MODULES_DIR_COMMAND
+        "from distutils import sysconfig; print(sysconfig.get_python_lib(True, False, '${CMAKE_INSTALL_PREFIX}'))"
+        )
+    else()
+      set(PYTHON_GET_MODULES_DIR_COMMAND
+        "from distutils import sysconfig; print(sysconfig.get_python_lib(True, False))"
+        )
+    endif()
+    
+    execute_process(
+      COMMAND ${PYTHON_EXECUTABLE} -c "${PYTHON_GET_MODULES_DIR_COMMAND}"
+      OUTPUT_VARIABLE PYTHON_MODULES_DIR_DEFAULT
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      )
+
+    set(
+      PYTHON_MODULES_DIR
+      ${PYTHON_MODULES_DIR_DEFAULT}
+      CACHE STRING "The installation directory for the Python modules."
+      )
   endif (WITH_SWIG_PYTHON)
   if (WITH_SWIG_JAVA)
     # TODO
@@ -135,9 +157,10 @@ if (WITH_OSC)
 endif (WITH_OSC)
 
 if (WITH_PNG)
-  # find_package(png REQUIRED)
+  find_package(PNG REQUIRED)
+  find_package(ZLIB REQUIRED)
    find_package(Freetype REQUIRED)
-  set (MARSYAS_PNG 1)
+  # set (MARSYAS_PNG 1)
 endif (WITH_PNG)
 
 if (WITH_ANN)
